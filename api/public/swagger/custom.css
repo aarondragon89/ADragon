@@ -1,0 +1,21 @@
+.download-url-wrapper {
+  display: none !important;
+}
+
+.wrapper .topbar-wrapper {
+  display: none !important;
+}
+
+.swagger-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: auto;
+  padding: 8px 0;
+}
+
+.swagger-logo span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1798c1;
+}

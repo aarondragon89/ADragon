@@ -1,0 +1,16 @@
+{
+  "create": {
+    "roleId": "2f5e9d14-7f94-4cf2-95ea-7cc5f2ae1e62",
+    "claimId": "4ef8be25-b1cf-4b9d-8c62-80f9f37c7ef8",
+    "source": "system"
+  },
+  "update": {
+    "expiresAt": "2026-12-31T00:00:00.000Z",
+    "metadata": {
+      "scope": "all"
+    }
+  },
+  "filter": {
+    "filterGroups": []
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "@adragon/api-sample",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sample NestJS app consuming @adragon/api-core from Azure Artifacts",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "start": "nest start",
+    "dev": "nest start --watch",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node server.js",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "migration:generate": "dotenv -e .env -- typeorm-ts-node-commonjs migration:generate -d src/config/data-source.ts",
+    "migration:create": "typeorm-ts-node-commonjs migration:create",
+    "migration:run": "dotenv -e .env -- typeorm-ts-node-commonjs migration:run -d src/config/data-source.ts",
+    "migration:revert": "dotenv -e .env -- typeorm-ts-node-commonjs migration:revert -d src/config/data-source.ts",
+    "seed": "dotenv -e .env -- ts-node src/seed/index.ts"
+  },
+  "dependencies": {
+    "@adragon/api-core": "^1.0.10",
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.2.0",
+    "@nestjs/typeorm": "^11.0.0",
+    "module-alias": "^2.2.3",
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.23"
+  },
+  "_moduleAliases": {
+    "@adragon-api": "node_modules/@adragon/api-core/dist"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@nestjs/cli": "^11.0.0",
+    "@types/node": "^22.10.7",
+    "dotenv-cli": "^8.0.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^16.0.0",
+    "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
+}

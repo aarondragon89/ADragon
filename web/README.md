@@ -1,34 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# samples/web
 
-## Getting Started
+Sample Next.js app that consumes `@adragon/web-core` from the Azure Artifacts feed.
 
-First, run the development server:
+## Features
+
+- App Router starter under `src/app`
+- Azure feed `.npmrc` matching the API sample
+- TypeScript alias from `@adragon-web/*` to `node_modules/@adragon/web-core/dist/*`
+- BookCar-style encrypted API client for the sample API
+- Admin login route at `/admin/auth/login`
+- Admin CRUD via `Listing` from `@adragon/web-core` (for `user-role-claim` and other admin resources)
+- Minimal ESLint setup aligned with the main web project
+
+## Install
+
+Before install, ensure `AZURE_ARTIFACTS_TOKEN` is set for the feed in `.npmrc`.
+
+Copy `.env.example` to `.env.local` and keep these values aligned with `samples/api`:
+
+- `NEXT_PUBLIC_API_URL=http://localhost:4001`
+- `NEXT_PUBLIC_ENCRYPTION_KEY` and `NEXT_PUBLIC_ENCRYPTION_IV` matching the API env
+- `samples/api` should allow `CORS_ORIGIN=http://localhost:3000`
 
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Run
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+The sample runs on `http://localhost:3000`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- `http://localhost:3000` redirects to the admin dashboard
+- `http://localhost:3000/admin` redirects to login when no session cookie is present
+- `http://localhost:3000/admin/auth/login` is the admin sign-in page
+- `http://localhost:3000/admin/user-role-claim` opens the CRUD listing page
 
-## Learn More
+## Verify
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Open `http://localhost:3000/admin/auth/login` and sign in
+- Confirm `http://localhost:3000/admin/user-role-claim` renders CRUD listing UI
+- Install will require `AZURE_ARTIFACTS_TOKEN` so `@adragon/web-core` can be fetched from Azure Artifacts

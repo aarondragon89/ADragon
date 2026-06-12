@@ -1,0 +1,17 @@
+{
+  "create": {
+    "code": "user.read",
+    "resource": "user",
+    "action": "read",
+    "effect": "allow"
+  },
+  "update": {
+    "description": "Allow reading users",
+    "condition": {
+      "tenantId": 1
+    }
+  },
+  "filter": {
+    "filterGroups": []
+  }
+}

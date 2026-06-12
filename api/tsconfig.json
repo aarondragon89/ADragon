@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "paths": {
+      "@adragon-api/*": [
+        "./node_modules/@adragon/api-core/dist/*"
+      ]
+    },
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "incremental": true,
+    "types": ["node"],
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "create": {
+    "userId": 1,
+    "claimId": "4ef8be25-b1cf-4b9d-8c62-80f9f37c7ef8",
+    "source": "admin",
+    "overrideEffect": "deny",
+    "reason": "Temporary restriction"
+  },
+  "update": {
+    "overrideEffect": "allow",
+    "expiresAt": "2026-12-31T00:00:00.000Z"
+  },
+  "filter": {
+    "filterGroups": []
+  }
+}

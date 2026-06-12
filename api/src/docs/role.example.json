@@ -1,0 +1,16 @@
+{
+  "create": {
+    "name": "Administrator",
+    "code": "admin",
+    "description": "Full system access",
+    "priority": 100,
+    "isSystem": true
+  },
+  "update": {
+    "description": "Global administrator role",
+    "priority": 110
+  },
+  "filter": {
+    "filterGroups": []
+  }
+}

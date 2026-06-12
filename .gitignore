@@ -1,0 +1,43 @@
+node_modules
+dist
+src/scripts/*.log
+src/scripts/*.tmp
+src/scripts/output/
+src/scripts/.cache/
+src/scripts/__pycache__/
+src/scripts/*.bak
+src/scripts/*.out
+code/.npmrc
+
+# Global Node artifacts
+**/node_modules/
+**/dist/
+
+# API (code/api)
+code/api/.env
+code/api/.env.*
+!code/api/.env.example
+code/api/logs/
+code/api/coverage/
+code/api/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Web (code/web)
+code/web/.next/
+code/web/out/
+code/web/.turbo/
+code/web/.vercel/
+code/web/.swc/
+code/web/.env
+code/web/.env.*
+!code/web/.env.example
+code/web/deploy/
+
+# Deploy package outputs
+code/api/deploy/
+logs/
+.DS_Store
+secrets/

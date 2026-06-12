@@ -1,0 +1,11 @@
+# samples/web is a consumer of @adragon/web-core, not a source package.
+# Ignore local admin modules that overlap with feed-owned structure.
+src/app/admin/(main)/_apps/
+src/app/admin/(main)/configs/
+
+# Standard build/dev artifacts
+.next/
+coverage/
+out/
+node_modules/
+*.log

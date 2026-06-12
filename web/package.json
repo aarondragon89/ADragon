@@ -1,24 +1,41 @@
 {
-  "name": "adragoncore",
-  "version": "0.1.0",
+  "name": "@adragon/web-sample",
+  "version": "1.0.0",
   "private": true,
+  "description": "Sample Next.js app consuming @adragon/web-core from Azure Artifacts",
+  "engines": {
+    "node": ">=20 <21"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p 3000",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "next": "12.1.6",
-    "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "@adragon/web-core": "^1.0.2",
+    "@tailwindcss/postcss": "^4.3.0",
+    "clsx": "^2.1.1",
+    "crypto-js": "^4.2.0",
+    "lucide-react": "^1.17.0",
+    "module-alias": "^2.2.3",
+    "next": "^16.2.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "_moduleAliases": {
+    "@adragon-web": "node_modules/@adragon/web-core/dist"
   },
   "devDependencies": {
-    "@types/node": "17.0.34",
-    "@types/react": "18.0.9",
-    "@types/react-dom": "18.0.4",
-    "eslint": "8.15.0",
-    "eslint-config-next": "12.1.6",
-    "typescript": "4.6.4"
-  }
+    "@types/crypto-js": "^4.2.2",
+    "@types/node": "^22.18.0",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.2.6",
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }

@@ -1,0 +1,16 @@
+{
+  "create": {
+    "email": "admin@example.com",
+    "username": "admin",
+    "displayName": "System Administrator",
+    "status": "active",
+    "emailVerified": true
+  },
+  "update": {
+    "displayName": "Administrator",
+    "status": "active"
+  },
+  "filter": {
+    "filterGroups": []
+  }
+}

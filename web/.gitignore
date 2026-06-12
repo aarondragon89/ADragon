@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+coverage
+.env.local
+.env.production
+
+# Avoid duplicating feed-owned admin modules in samples/web
+src/app/admin/(main)/_apps/
+src/app/admin/(main)/configs/

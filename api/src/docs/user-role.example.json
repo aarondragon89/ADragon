@@ -1,0 +1,15 @@
+{
+  "create": {
+    "userId": 1,
+    "roleId": "2f5e9d14-7f94-4cf2-95ea-7cc5f2ae1e62",
+    "source": "admin",
+    "isPrimary": true
+  },
+  "update": {
+    "isPrimary": false,
+    "expiresAt": "2026-12-31T00:00:00.000Z"
+  },
+  "filter": {
+    "filterGroups": []
+  }
+}
