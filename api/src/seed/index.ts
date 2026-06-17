@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import dataSource from '../config/data-source';
 import { User } from '../entities';
+import * as bcrypt from 'bcrypt';
 
 const SAMPLE_EMAIL = process.env.SAMPLE_USER_EMAIL || 'admin@example.com';
 const SAMPLE_PASSWORD = process.env.SAMPLE_USER_PASSWORD || 'Admin@123';
@@ -26,7 +27,7 @@ async function run() {
                 displayName: 'Sample Admin',
                 status: 'active',
                 emailVerified: true,
-                passwordHash: SAMPLE_PASSWORD,
+                passwordHash: await bcrypt.hash(SAMPLE_PASSWORD, 10),
             });
             await repo.save(user);
         } else {
@@ -35,7 +36,7 @@ async function run() {
             user.displayName = user.displayName || 'Sample Admin';
             user.status = 'active';
             user.emailVerified = true;
-            user.passwordHash = SAMPLE_PASSWORD;
+            user.passwordHash = await bcrypt.hash(SAMPLE_PASSWORD, 10);
             await repo.save(user);
         }
     } finally {

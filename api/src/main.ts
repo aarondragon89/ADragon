@@ -3,8 +3,10 @@ import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
+import { AppModule } from './modules/apps/app.module';
+import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
+import cookieParser from 'cookie-parser';
 import { swaggerBasicAuthMiddleware } from './common/middleware/swagger-basic-auth.middleware';
 
 async function bootstrap() {
@@ -16,6 +18,19 @@ async function bootstrap() {
   const swaggerUser = (process.env.SWAGGER_USER || 'admin').trim();
   const swaggerPass = (process.env.SWAGGER_PASS || 'changeme').trim();
   app.use(swaggerBasicAuthMiddleware(swaggerUser, swaggerPass));
+
+  // Load ConfigService
+  const configService = app.get(ConfigService);
+
+  // Setup CORS from .env
+  const origins = configService
+    .get<string>('CORS_ORIGIN')
+    ?.split(',')
+    .map((o) => o.trim());
+  app.enableCors({
+    origin: origins || '*',
+    credentials: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('ADragon API Sample')
@@ -35,6 +50,8 @@ async function bootstrap() {
       persistAuthorization: true,
     },
   });
+
+  app.use(cookieParser());
 
   await app.listen(process.env.PORT ? Number(process.env.PORT) : 4001);
 }

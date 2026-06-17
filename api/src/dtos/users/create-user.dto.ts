@@ -7,8 +7,11 @@ export class CreateUserDto {
   @ApiProperty({ example: 'admin' })
   username: string;
 
+  @ApiProperty({ required: true, nullable: true })
+  passwordHash: string | null;
+
   @ApiProperty({ example: 'StrongPassword123!', required: false, nullable: true })
-  passwordHash?: string | null;
+  password?: string | null;
 
   @ApiProperty({ example: 'System Administrator', required: false, nullable: true })
   displayName?: string | null;

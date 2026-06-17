@@ -4,6 +4,7 @@
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
@@ -11,12 +12,17 @@
     "paths": {
       "@adragon-api/*": [
         "./node_modules/@adragon/api-core/dist/*"
+      ],
+      "@/*": [
+        "./src/*"
       ]
     },
     "rootDir": "./src",
     "outDir": "./dist",
     "incremental": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "skipLibCheck": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": false,

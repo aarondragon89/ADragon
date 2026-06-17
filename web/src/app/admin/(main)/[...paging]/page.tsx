@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { Listing } from '@adragon-web/admin';
+import tableConfigs from '../../configs/tableConfigs';
 
 export default function PagingPage() {
   const params = useParams();
@@ -12,5 +13,5 @@ export default function PagingPage() {
         ? params.paging
         : null;
 
-  return <Listing resource={resource} />;
+  return <Listing resource={resource} tableConfigs={tableConfigs} />;
 }

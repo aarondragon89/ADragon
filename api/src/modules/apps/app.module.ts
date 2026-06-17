@@ -5,9 +5,10 @@ import { EncryptionBaseModule } from '@adragon-api/common/modules/encryption-bas
 import { EncryptionBaseService } from '@adragon-api/common/services/encryption-base.service';
 import { EncryptionService } from '@adragon-api/common/utilities/encryption.service';
 import { createBaseController } from '@adragon-api/common/controllers/base.controller';
+import { JwtAuthModule } from '@adragon-api/jwt';
 import { join } from 'path';
 import { AppController } from './app.controller';
-import { AuthController } from './auth.controller';
+import { AuthController } from '@/modules/auths/auth.controller';
 import {
   Claim,
   Role,
@@ -15,21 +16,21 @@ import {
   User,
   UserClaim,
   UserRole,
-} from './entities';
+} from '@/entities';
 import {
   CreateClaimDto,
   CreateRoleClaimDto,
   CreateRoleDto,
   CreateUserClaimDto,
-  CreateUserDto,
   CreateUserRoleDto,
   UpdateClaimDto,
   UpdateRoleClaimDto,
   UpdateRoleDto,
   UpdateUserClaimDto,
-  UpdateUserDto,
   UpdateUserRoleDto,
-} from './dtos';
+} from '@/dtos';
+import { UserModule } from '../users/user.module';
+import { UserService } from '../users/user.service';
 
 @Module({
   imports: [
@@ -47,16 +48,11 @@ import {
       autoLoadEntities: true,
     }),
     TypeOrmModule.forFeature([User]),
-    EncryptionBaseModule.register<User, CreateUserDto, UpdateUserDto>(
-      EncryptionBaseService,
-      createBaseController<User, CreateUserDto, UpdateUserDto>(
-        'user',
-        'user',
-        EncryptionBaseService<User, CreateUserDto, UpdateUserDto>,
-      ),
-      [EncryptionService],
-      User,
-    ),
+    UserModule,
+    JwtAuthModule.forRoot({
+      imports: [UserModule],
+      userService: UserService,
+    }),
     EncryptionBaseModule.register<Role, CreateRoleDto, UpdateRoleDto>(
       EncryptionBaseService,
       createBaseController<Role, CreateRoleDto, UpdateRoleDto>(
@@ -118,4 +114,4 @@ import {
   ],
   controllers: [AppController, AuthController],
 })
-export class AppModule {}
+export class AppModule { }

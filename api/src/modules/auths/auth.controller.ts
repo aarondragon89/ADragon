@@ -8,7 +8,9 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './entities';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { User } from '../../entities';
 
 type LoginDto = {
   email: string;
@@ -20,6 +22,7 @@ export class AuthController {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
 
   @Post('login')
@@ -42,16 +45,30 @@ export class AuthController {
       throw new UnauthorizedException('Invalid credentials.');
     }
 
-    if (!user.passwordHash || user.passwordHash !== password) {
+    if (!user.passwordHash) {
+      throw new UnauthorizedException('Invalid credentials.');
+    }
+
+    // Compare using bcrypt — never compare hashes with ===
+    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+    if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials.');
     }
 
     user.lastLoginAt = new Date();
     await this.userRepository.save(user);
 
-    const nonce = Math.random().toString(36).slice(2);
-    const accessToken = Buffer.from(`sample:${user.id}:${Date.now()}:${nonce}`).toString('base64url');
-    const refreshToken = Buffer.from(`sample-refresh:${user.id}:${Date.now()}:${nonce}`).toString('base64url');
+    // Payload must match what JwtStrategy.validate() reads:
+    // payload.sub, payload.email, payload.claims, payload.roles
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      claims: [], // TODO: load real claims here if needed at login time
+      roles: [],  // TODO: load real roles here if needed at login time
+    };
+
+    const accessToken = this.jwtService.sign(payload);
+    const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
 
     return {
       statusCode: 200,
