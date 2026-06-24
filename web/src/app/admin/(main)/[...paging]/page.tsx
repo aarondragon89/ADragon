@@ -3,8 +3,13 @@
 import { useParams } from 'next/navigation';
 import { Listing } from '@adragon-web/admin';
 import tableConfigs from '../../configs/tableConfigs';
+import { useTheme } from '@adragon-web/context';
 
 export default function PagingPage() {
+  const themeContext = useTheme();
+
+  console.log('Theme in PagingPage:', themeContext.theme);
+
   const params = useParams();
   const resource =
     params && Array.isArray(params.paging)
@@ -13,5 +18,5 @@ export default function PagingPage() {
         ? params.paging
         : null;
 
-  return <Listing resource={resource} tableConfigs={tableConfigs} />;
+  return <Listing resource={resource} tableConfigs={tableConfigs} theme={themeContext.theme} />;
 }
