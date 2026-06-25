@@ -8,8 +8,6 @@ import { useTheme } from '@adragon-web/context';
 export default function PagingPage() {
   const themeContext = useTheme();
 
-  console.log('Theme in PagingPage:', themeContext.theme);
-
   const params = useParams();
   const resource =
     params && Array.isArray(params.paging)
