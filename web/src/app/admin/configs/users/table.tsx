@@ -39,7 +39,7 @@ const usersTableConfig: TableConfig<User> = {
   ],
   useStore: useUsersStore,
   dataKey: "items",
-  fetchKey: "filter",
+  fetchKey: "filterUserWithRoles",
   fetchParams: {},
   buttons: [
     { label: "Create User", action: "create" },

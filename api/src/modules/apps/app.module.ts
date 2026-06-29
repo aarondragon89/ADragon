@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
 import { EncryptionBaseModule } from '@adragon-api/common/modules/encryption-base.module';
 import { EncryptionBaseService } from '@adragon-api/common/services/encryption-base.service';
 import { EncryptionService } from '@adragon-api/common/utilities/encryption.service';
 import { createBaseController } from '@adragon-api/common/controllers/base.controller';
 import { JwtAuthModule } from '@adragon-api/jwt';
+import { DecryptionMiddleware } from '@adragon-api/common/middleware/decryption.middleware';
+import { AppBaseModule } from '@adragon-api/common/modules/app-base.module';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AuthController } from '@/modules/auths/auth.controller';
@@ -34,7 +35,7 @@ import { UserService } from '../users/user.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    AppBaseModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
@@ -114,4 +115,8 @@ import { UserService } from '../users/user.service';
   ],
   controllers: [AppController, AuthController],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(DecryptionMiddleware).forRoutes('*');
+    }
+}

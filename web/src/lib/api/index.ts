@@ -1,6 +1,14 @@
-import { createApi } from '@adragon-web/api';
+import { apiClient, createApi } from '@adragon-web/api';
+import { FilterPayload } from '@adragon-web/index';
 
-export const userApi = createApi('user');
+export const userApi = createApi('user', {
+  extend: {
+    filterUserWithRoles(params: FilterPayload = {}) {
+      return apiClient.post("/user/with-roles", params);
+    },
+    getCurrentUser: <T>() => apiClient.get<T>("/user/me"),
+  }
+});
 export const userRoleApi = createApi('user-role');
 export const userClaimApi = createApi('user-claim');
 export const roleApi = createApi('role');

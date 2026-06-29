@@ -1,8 +1,30 @@
 import { apiClient } from '@adragon-web/api';
 
+export interface AuthResponse<T = any> {
+  statusCode: number;
+  message: string;
+  data: T;
+}
+
+export interface AuthUserPayload {
+  id: string | number;
+  email: string;
+  name?: string;
+  fullName?: string;
+  userName?: string;
+  avatarUrl?: string;
+  role?: string;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;
+}
+
+export interface LoginResponse {
+  accessToken: string;
+  refreshToken?: string;
+  user?: AuthUserPayload;
 }
 
 export type LoginPayload = {
@@ -15,30 +37,8 @@ export type LoginPayload = {
 };
 
 export const authApi = {
-  // Login uses plain JSON because @adragon-web apiClient encrypts POST bodies.
-  async login(credentials: LoginRequest): Promise<LoginPayload> {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(credentials),
-    });
-
-    const payload = await response.json().catch(() => null);
-
-    if (!response.ok) {
-      const message =
-        payload && typeof payload === 'object' && 'message' in payload && typeof payload.message === 'string'
-          ? payload.message
-          : 'Login failed';
-      throw new Error(message);
-    }
-
-    return (payload && typeof payload === 'object' && 'data' in payload ? payload : { data: payload }) as LoginPayload;
-  },
-
+  login: (credentials: LoginRequest) =>
+    apiClient.post<AuthResponse<LoginResponse>>("/auth/login", credentials),
   logout: () => apiClient.post('/auth/logout', {}),
   profile: () => apiClient.get('/auth/profile'),
 };

@@ -1,8 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { Providers } from "@/app/providers";
 import { Header, Sidebar, Footer } from "@/components/admin/layout";
-import { ThemeProvider } from "@adragon-web/context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { registerUnauthorizedHandler } from "@adragon-web/api";
+import { clearAuthSession } from '@/lib/api/authApi';
 
 interface AdminLayoutProps {
     children: React.ReactNode;
@@ -13,6 +16,15 @@ export default function AdminLayout({
     children,
     title,
 }: AdminLayoutProps) {
+    const router = useRouter();
+
+    useEffect(() => {
+        registerUnauthorizedHandler(() => {
+            clearAuthSession();
+            router.push('/admin/auth/login');
+        });
+    }, []);
+
     const [collapsed, setCollapsed] = useState(false);
 
     return (
@@ -33,9 +45,9 @@ export default function AdminLayout({
 
                 {/* Page content */}
                 <main className="flex-1 mt-16 p-6 overflow-auto">
-                    <ThemeProvider>
+                    <Providers>
                         {children}
-                    </ThemeProvider>
+                    </Providers>
                 </main>
 
                 {/* Footer */}

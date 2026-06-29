@@ -77,6 +77,7 @@ export class UserService extends EncryptionBaseService<
    */
   async filterUserWithRoles(payload: FilterPayload = {}): Promise<any> {
     const start = Date.now();
+
     // Use baseService filter with relations
     const result: UserWithRolesDto[] = await super.filter(payload);
 
