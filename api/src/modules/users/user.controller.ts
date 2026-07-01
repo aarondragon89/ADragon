@@ -27,8 +27,6 @@ export class UserController extends BaseUserController {
     ): Promise<any> {
         const result = await this.userService.filterUserWithRoles(payload);
 
-        console.log('filterUserWithRoles result:', result);
-
         if (typeof (this.baseService as any).encryptResponse === 'function') {
             return (this.baseService as any).encryptResponse(result, request);
         }
